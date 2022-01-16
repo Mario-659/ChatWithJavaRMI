@@ -19,9 +19,4 @@ public class Server implements ChatWithSockets.shared.Server {
     public void sendRequest(Request request, Client client) throws RemoteException {
         clientManager.processRequest(request, client);
     }
-
-    @Override
-    public void registerClient(Client client) {
-        clientManager.registerClient(client);
-    }
 }

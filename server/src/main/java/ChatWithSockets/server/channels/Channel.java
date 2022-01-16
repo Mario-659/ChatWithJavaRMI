@@ -46,6 +46,12 @@ public class Channel {
         }
     }
 
+    public void sendChatMessage(String message, ClientSession sender){
+        String username = users.get(sender);
+        sendToAll(new Request(RequestType.SENDMESSAGE,
+                message, username));
+    }
+
     private void validateSession(ClientSession session){
         for (ClientSession channelClient : users.keySet()) {
             if(channelClient == session) {

@@ -28,4 +28,13 @@ public class Request implements Serializable {
     public String getSender(){
         return this.sender;
     }
+
+    @Override
+    public String toString() {
+        return "Request{" +
+                "type=" + type +
+                ", payload='" + payload + '\'' +
+                ", sender='" + sender + '\'' +
+                '}';
+    }
 }
