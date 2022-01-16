@@ -9,7 +9,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 @Log4j2
 public class Server implements ChatWithSockets.shared.Server {
-    ClientManager clientManager = new ClientManager();
+    ClientManager clientManager = new ClientManager(this);
 
     public Server(int port) throws RemoteException {
         UnicastRemoteObject.exportObject(this, port);

@@ -5,11 +5,12 @@ import ChatWithSockets.server.requestHandler.RequestHandler;
 import ChatWithSockets.server.util.IDManager;
 import ChatWithSockets.shared.Client;
 import ChatWithSockets.shared.Request.Request;
-import ChatWithSockets.shared.Request.RequestType;
 import lombok.Getter;
+import lombok.extern.log4j.Log4j2;
 
 import java.rmi.RemoteException;
 
+@Log4j2
 @Getter
 public class ClientSession {
     private final int sessionID;
@@ -34,14 +35,15 @@ public class ClientSession {
 
     public void sendRequest(Request request){
         try {
-            client.sendRequest(request);
+            client.sendRequest(request, clientManager.getServer());
         } catch (RemoteException e) {
             e.printStackTrace();
+            log.debug(e.getMessage());
         }
     }
 
     public void handleRequest(Request request, ClientSession session) {
-        reqHandler.handleRequest(request, this);
+        reqHandler.handleRequest(request);
     }
 
     @Override

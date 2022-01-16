@@ -2,7 +2,6 @@ package ChatWithSockets.server.requestHandler;
 
 import ChatWithSockets.server.ClientSession;
 import ChatWithSockets.server.channels.ChannelManager;
-import ChatWithSockets.server.requestHandler.State;
 import ChatWithSockets.shared.Request.Request;
 
 public class RequestHandler {
@@ -12,7 +11,7 @@ public class RequestHandler {
         this.state = new WithoutChannel(session, channelManager);
     }
 
-    public void handleRequest(Request request, ClientSession session){
+    public void handleRequest(Request request){
         state.handleRequest(request);
     }
 

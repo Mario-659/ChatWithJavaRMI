@@ -3,6 +3,7 @@ package ChatWithSockets.server;
 import ChatWithSockets.server.channels.ChannelManager;
 import ChatWithSockets.shared.Client;
 import ChatWithSockets.shared.Request.Request;
+import ChatWithSockets.shared.Server;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.HashMap;
@@ -11,6 +12,11 @@ import java.util.HashMap;
 public class ClientManager {
     private HashMap<Client, ClientSession> clients = new HashMap<>();
     private ChannelManager channelManager = new ChannelManager();
+    private final Server server;
+
+    public ClientManager(Server server) {
+        this.server = server;
+    }
 
     public void processRequest(Request request, Client client) {
         ClientSession session = clients.get(client);
@@ -32,7 +38,12 @@ public class ClientManager {
             log.debug(e.getMessage());
             throw e;
         }
-        else clients.put(client, new ClientSession(client, this));
+        else {
+            clients.put(client, new ClientSession(client, this));
+            log.debug("Registered new client");
+        }
     }
-
+    public Server getServer(){
+        return this.server;
+    }
 }
