@@ -1,6 +1,7 @@
 package ChatWithSockets.server;
 
 import ChatWithSockets.server.channels.ChannelManager;
+import ChatWithSockets.server.util.Pinger;
 import ChatWithSockets.shared.Client;
 import ChatWithSockets.shared.Request.Request;
 import ChatWithSockets.shared.Server;
@@ -10,12 +11,14 @@ import java.util.HashMap;
 
 @Log4j2
 public class ClientManager {
-    private HashMap<Client, ClientSession> clients = new HashMap<>();
-    private ChannelManager channelManager = new ChannelManager();
+    private final HashMap<Client, ClientSession> clients = new HashMap<>();
+    private final ChannelManager channelManager = new ChannelManager();
     private final Server server;
+    private final Pinger pinger;
 
     public ClientManager(Server server) {
         this.server = server;
+        pinger = new Pinger(5);
     }
 
     public void processRequest(Request request, Client client) {
@@ -24,7 +27,14 @@ public class ClientManager {
             registerClient(client);
             processRequest(request, client);
         }
-        else session.handleRequest(request, session);
+        else session.handleRequest(request);
+    }
+
+    public void deleteClient(ClientSession session){
+        if(session.isInChannel()) channelManager.leaveChannel(session);
+        clients.remove(session.getClient());
+        pinger.deleteSession(session);
+        log.debug("Deleted session with id: " + session.getSessionID());
     }
 
     public ChannelManager getChannelManager(){
@@ -39,7 +49,9 @@ public class ClientManager {
             throw e;
         }
         else {
-            clients.put(client, new ClientSession(client, this));
+            ClientSession session = new ClientSession(client, this);
+            clients.put(client, session);
+            pinger.addSession(session);
             log.debug("Registered new client");
         }
     }

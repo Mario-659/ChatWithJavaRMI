@@ -37,12 +37,12 @@ public class ClientSession {
         try {
             client.sendRequest(request, clientManager.getServer());
         } catch (RemoteException e) {
-            e.printStackTrace();
-            log.debug(e.getMessage());
+            log.debug("Error occurred while sending request to client. Session id: " + sessionID);
+            clientManager.deleteClient(this);
         }
     }
 
-    public void handleRequest(Request request, ClientSession session) {
+    public void handleRequest(Request request) {
         reqHandler.handleRequest(request);
     }
 

@@ -44,7 +44,7 @@ public class WithoutChannel extends State{
                 channelManager.createAndJoinChannel(data[0], session, data[1]);
                 changeToInChannel();
                 sendRequest(RequestType.REQUESTSUCCEEDED,
-                        "Joined channel " + data[0] + " with username " + data[1]);
+                        "Created and joined channel " + data[0] + " with username " + data[1]);
             } catch (IOException e) {
                 sendIOException(e);
             }
@@ -59,7 +59,7 @@ public class WithoutChannel extends State{
                 channelManager.joinChannel(data[0], session, data[1]);
                 changeToInChannel();
                 sendRequest(RequestType.REQUESTSUCCEEDED,
-                        "Created and joined channel " + data[0] +
+                        "Joined channel " + data[0] +
                                 " with username " + data[1]);
             } catch (IOException e) {
                 sendIOException(e);
