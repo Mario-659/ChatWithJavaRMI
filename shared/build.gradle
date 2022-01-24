@@ -1,3 +1,3 @@
 plugins {
-    id 'ChatWithSockets.java-library-conventions'
+    id 'ChatWithRMI.java-library-conventions'
 }

@@ -6,10 +6,10 @@ plugins {
     //JaCoCo for test coverage (build/jacocoHtml)
     id "jacoco"
 
-    id 'ChatWithSockets.java-application-conventions'
+    id 'ChatWithRMI.java-application-conventions'
 }
 
-project.setProperty("mainClassName", "ChatWithSockets.server.RunServer")
+project.setProperty("mainClassName", "ChatWithRMI.server.RunServer")
 
 version 'unspecified'
 

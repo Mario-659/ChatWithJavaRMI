@@ -2,10 +2,10 @@ plugins {
     //shadow for fatJars
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 
-    id 'ChatWithSockets.java-application-conventions'
+    id 'ChatWithRMI.java-application-conventions'
 }
 
-project.setProperty("mainClassName", "ChatWithSockets.client.RunClient")
+project.setProperty("mainClassName", "ChatWithRMI.client.RunClient")
 
 version 'unspecified'
 
