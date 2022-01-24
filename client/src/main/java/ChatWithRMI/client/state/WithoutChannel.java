@@ -73,7 +73,7 @@ public class WithoutChannel extends State{
         return channelName + "," + username;
     }
 
-    private final String options = "\n\nAvailable options: \n" +
+    private final String options = "\nAvailable options: \n" +
                                     "create: Creates and joins new channel\n" +
                                     "join: Joins existing channel\n" +
                                     "get: Gets available channels";

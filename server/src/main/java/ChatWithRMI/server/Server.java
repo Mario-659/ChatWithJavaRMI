@@ -12,7 +12,9 @@ public class Server implements ChatWithRMI.shared.Server {
     ClientManager clientManager = new ClientManager(this);
 
     public Server(int port) throws RemoteException {
+        log.debug("Starting server at port " + port);
         UnicastRemoteObject.exportObject(this, port);
+        log.debug("Server started");
     }
 
     @Override

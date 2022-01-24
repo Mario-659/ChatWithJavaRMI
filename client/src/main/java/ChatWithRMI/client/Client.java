@@ -10,21 +10,20 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 public class Client implements ChatWithRMI.shared.Client {
-    private Server server;
     Controller controller;
 
-    public Client() throws  RemoteException {
-        UnicastRemoteObject.exportObject(this, 0);
+    public Client(int clientPort) throws  RemoteException {
+        UnicastRemoteObject.exportObject(this, clientPort);
     }
 
     @Override
-    public void sendRequest(Request request, Server server) throws RemoteException {
-        controller.processRequest(request, server);
+    public void sendRequest(Request request) throws RemoteException {
+        controller.processRequest(request);
     }
 
-    public void startClient() throws RemoteException, NotBoundException {
-        Registry registry = LocateRegistry.getRegistry("localhost", 1099);
-        server = (Server) registry.lookup("Server");
+    public void startClient(int serverPort) throws RemoteException, NotBoundException {
+        Registry registry = LocateRegistry.getRegistry("localhost", serverPort);
+        Server server = (Server) registry.lookup("Server");
         controller = new Controller(this, server);
         controller.start();
     }

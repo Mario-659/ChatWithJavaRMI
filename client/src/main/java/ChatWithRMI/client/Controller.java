@@ -23,7 +23,7 @@ public class Controller{
         state.run();
     }
 
-    public void processRequest(Request request, Server server){
+    public void processRequest(Request request){
         state.handleRequest(request, this);
     }
 

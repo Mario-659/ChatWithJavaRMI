@@ -35,7 +35,7 @@ public class ClientSession {
 
     public void sendRequest(Request request){
         try {
-            client.sendRequest(request, clientManager.getServer());
+            client.sendRequest(request);
         } catch (RemoteException e) {
             log.debug("Error occurred while sending request to client. Session id: " + sessionID);
             clientManager.deleteClient(this);

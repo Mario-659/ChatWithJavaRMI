@@ -25,7 +25,7 @@ public abstract class State {
 
     protected void displayInfo(String info){
         System.out.println("*****************************");
-        System.out.println("\t\t" + info);
+        System.out.println(info);
         System.out.println("*****************************");
     }
 

@@ -34,14 +34,14 @@ public class ServerTest {
 
         sendRequest(RequestType.JOINCHANNEL,"ChannelName,Username2", client2);
         //request to client1 sent about username2 joining the channel
-        verify(client1, times(2)).sendRequest(any(), any());
+        verify(client1, times(2)).sendRequest(any());
         response = getResponse(client2);
         assertEquals(RequestType.REQUESTSUCCEEDED, response.getType());
 
         sendRequest(RequestType.SENDMESSAGE, "test message", client1);
 
-        verify(client1, times(2)).sendRequest(any(), any());
-        verify(client2, times(2)).sendRequest(captor.capture(), any());
+        verify(client1, times(2)).sendRequest(any());
+        verify(client2, times(2)).sendRequest(captor.capture());
 
         Request secondRequest = captor.getValue();
         assertEquals(RequestType.SENDMESSAGE, secondRequest.getType());
@@ -58,7 +58,7 @@ public class ServerTest {
     }
 
     private Request getResponse(Client client) throws RemoteException {
-        verify(client).sendRequest(captor.capture(), any());
+        verify(client).sendRequest(captor.capture());
         return captor.getValue();
     }
 
